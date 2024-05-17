@@ -2,11 +2,13 @@ import java.util.*;
 
 // Student class
 class Student {
-    private String name;
-    private String id;
-    private Set<Course> enrolledCourses;
-    private Map<Course, Double> courseGrades;
+    // Private instance variables
+    private String name;                       // Stores the name of the student
+    private String id;                         // Stores the ID of the student
+    private Set<Course> enrolledCourses;       // Stores the courses the student is enrolled in
+    private Map<Course, Double> courseGrades;  // Stores the grades for each course
 
+    // Constructor to initialize student details
     public Student(String name, String id) {
         this.name = name;
         this.id = id;
@@ -14,52 +16,62 @@ class Student {
         this.courseGrades = new HashMap<>();
     }
 
+    // Getter for student's name
     public String getName() {
         return name;
     }
 
+    // Setter for student's name
     public void setName(String name) {
         this.name = name;
     }
 
+    // Getter for student's ID
     public String getId() {
         return id;
     }
 
+    // Setter for student's ID
     public void setId(String id) {
         this.id = id;
     }
 
+    // Getter for enrolled courses
     public Set<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
 
+    // Getter for course grades
     public Map<Course, Double> getCourseGrades() {
         return courseGrades;
     }
 
+    // Method to enroll the student in a course
     public void enrollInCourse(Course course) {
         enrolledCourses.add(course);
-        course.incrementEnrolledStudents();
+        course.incrementEnrolledStudents();  // Increment the enrolled student count for the course
     }
 
+    // Method to assign a grade to the student for a specific course
     public void assignGrade(Course course, double grade) {
         if (enrolledCourses.contains(course)) {
-            courseGrades.put(course, grade);
+            courseGrades.put(course, grade);  // Update the grade for the course
         } else {
-            System.out.println("Student not enrolled in the course.");
+            System.out.println("Student not enrolled in the course.");  // Error message if student is not enrolled
         }
     }
 }
 
 // Course class
 class Course {
-    private String courseCode;
-    private String courseName;
-    private int maxCapacity;
-    private int enrolledStudents;
-    private static int totalEnrolledStudents = 0;
+    // Private instance variables
+    private String courseCode;                 // Stores the course code
+    private String courseName;                 // Stores the course name
+    private int maxCapacity;                   // Stores the maximum capacity of the course
+    private int enrolledStudents;              // Stores the current number of enrolled students
+    private static int totalEnrolledStudents = 0; // Static variable to track total enrolled students across all courses
 
+    // Constructor to initialize course details
     public Course(String courseCode, String courseName, int maxCapacity) {
         this.courseCode = courseCode;
         this.courseName = courseName;
@@ -67,31 +79,37 @@ class Course {
         this.enrolledStudents = 0;
     }
 
+    // Getter for course code
     public String getCourseCode() {
         return courseCode;
     }
 
+    // Getter for course name
     public String getCourseName() {
         return courseName;
     }
 
+    // Getter for maximum capacity
     public int getMaxCapacity() {
         return maxCapacity;
     }
 
+    // Getter for enrolled students count
     public int getEnrolledStudents() {
         return enrolledStudents;
     }
 
+    // Method to increment enrolled students count
     public void incrementEnrolledStudents() {
         if (enrolledStudents < maxCapacity) {
             enrolledStudents++;
-            totalEnrolledStudents++;
+            totalEnrolledStudents++;  // Increment the total enrolled students across all courses
         } else {
-            System.out.println("Course capacity reached.");
+            System.out.println("Course capacity reached.");  // Error message if course capacity is reached
         }
     }
 
+    // Static method to get total enrolled students across all courses
     public static int getTotalEnrolledStudents() {
         return totalEnrolledStudents;
     }
@@ -99,22 +117,27 @@ class Course {
 
 // CourseManagement class
 class CourseManagement {
-    private static List<Course> courses = new ArrayList<>();
-    private static Map<String, Double> overallGrades = new HashMap<>();
+    // Private static variables
+    private static List<Course> courses = new ArrayList<>();          // List to store all courses
+    private static Map<String, Double> overallGrades = new HashMap<>(); // Map to store overall grades for each student by ID
 
+    // Method to add a new course
     public static void addCourse(String courseCode, String courseName, int maxCapacity) {
         Course course = new Course(courseCode, courseName, maxCapacity);
         courses.add(course);
     }
 
+    // Method to enroll a student in a course
     public static void enrollStudent(Student student, Course course) {
         student.enrollInCourse(course);
     }
 
+    // Method to assign a grade to a student for a course
     public static void assignGrade(Student student, Course course, double grade) {
         student.assignGrade(course, grade);
     }
 
+    // Method to calculate the overall grade for a student
     public static double calculateOverallGrade(Student student) {
         double totalGrades = 0;
         int count = 0;
@@ -124,11 +147,12 @@ class CourseManagement {
             count++;
         }
 
-        double overallGrade = (count == 0) ? 0 : totalGrades / count;
+        double overallGrade = (count == 0) ? 0 : totalGrades / count;  // Calculate the overall grade
         overallGrades.put(student.getId(), overallGrade);
         return overallGrade;
     }
 
+    // Getter for the list of courses
     public static List<Course> getCourses() {
         return courses;
     }
@@ -136,8 +160,10 @@ class CourseManagement {
 
 // AdminInterface class
 public class AdminInterface {
+    // Scanner object for reading user input
     private static Scanner scanner = new Scanner(System.in);
 
+    // Main method to start the program
     public static void main(String[] args) {
         while (true) {
             showMenu();
@@ -166,6 +192,7 @@ public class AdminInterface {
         }
     }
 
+    // Method to display the menu
     private static void showMenu() {
         System.out.println("\n=== Course Enrollment and Grade Management System ===");
         System.out.println("1. Add a new course");
@@ -176,6 +203,7 @@ public class AdminInterface {
         System.out.print("Enter your choice: ");
     }
 
+    // Method to add a new course
     private static void addNewCourse() {
         System.out.print("Enter course code: ");
         String courseCode = scanner.nextLine();
@@ -189,6 +217,7 @@ public class AdminInterface {
         System.out.println("Course added successfully.");
     }
 
+    // Method to enroll a student in a course
     private static void enrollStudentInCourse() {
         System.out.print("Enter student name: ");
         String studentName = scanner.nextLine();
@@ -209,6 +238,7 @@ public class AdminInterface {
         }
     }
 
+    // Method to assign a grade to a student for a course
     private static void assignGradeToStudent() {
         System.out.print("Enter student ID: ");
         String studentId = scanner.nextLine();
@@ -229,6 +259,7 @@ public class AdminInterface {
         }
     }
 
+    // Method to calculate the overall grade for a student
     private static void calculateStudentOverallGrade() {
         System.out.print("Enter student ID: ");
         String studentId = scanner.nextLine();
@@ -242,13 +273,15 @@ public class AdminInterface {
         }
     }
 
+    // Placeholder method to find a student by ID
     private static Student findStudentById(String studentId) {
         // Implementation depends on how students are stored
         // For simplicity, we will return a new student object
-        // In real application, you would search for the student in a collection
+        // In a real application, you would search for the student in a collection
         return new Student("Dummy Name", studentId);
     }
 
+    // Method to find a course by its code
     private static Course findCourseByCode(String courseCode) {
         for (Course course : CourseManagement.getCourses()) {
             if (course.getCourseCode().equals(courseCode)) {
