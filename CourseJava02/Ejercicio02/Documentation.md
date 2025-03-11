@@ -27,6 +27,12 @@ The `LibraryItem<T>` class represents an item in the catalog. It has the followi
 
 #### **Code Implementation:**
 ```java
+/**
+ * The LibraryItem class represents an individual item in a library catalog.
+ * This class is generic and can store different types of library items such as books, DVDs, and magazines.
+ * 
+ * @param <T> The type of item ID (can be Integer, String, or any other type)
+ */
 public class LibraryItem<T> {
     private String title;
     private String author;
@@ -45,6 +51,16 @@ public class LibraryItem<T> {
     @Override
     public String toString() {
         return "ID: " + itemID + ", Title: " + title + ", Author: " + author;
+    }
+
+    public static void runTests() {
+        System.out.println("\n==== Running LibraryItem Tests ====");
+        LibraryItem<Integer> book = new LibraryItem<>("The Hobbit", "J.R.R. Tolkien", 101);
+        System.out.println("Expected: ID: 101, Title: The Hobbit, Author: J.R.R. Tolkien");
+        System.out.println("Actual: " + book);
+        LibraryItem<String> dvd = new LibraryItem<>("Inception", "Christopher Nolan", "D001");
+        System.out.println("Expected: ID: D001, Title: Inception, Author: Christopher Nolan");
+        System.out.println("Actual: " + dvd);
     }
 }
 ```
@@ -213,4 +229,4 @@ From the menu, select option **4 (Run Tests)** to execute all tests.
 - **Exception Handling**: Prevents crashes when removing missing items.
 - **Command-Line Interface**: Simple and interactive.
 
-🚀 **Ready to use and extend!**  
+🚀 **Ready to use and extend!**
