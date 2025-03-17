@@ -10,6 +10,8 @@ This is a simple multi-user chat application implemented in Java using socket pr
 - **Real-time messaging**: Clients can send and receive messages instantly.
 - **User notifications**: Notifies all users when someone joins or leaves the chat.
 - **Simple text-based interface**: Easy to use and interact with.
+- **Threaded client handling**: Each client connection runs on a separate thread, ensuring smooth communication.
+- **Scalability**: The server can handle multiple users without conflicts or message loss.
 
 ## Requirements
 
@@ -28,6 +30,42 @@ ChatApplication/
 │   │   ├── ChatClient.java  # Client-side implementation
 │── README.md                # Instructions and documentation
 ```
+
+## Java Class Explanations
+
+### `ChatServer.java`
+
+This class is responsible for handling the server-side operations. It listens for incoming client connections and manages message broadcasting.
+
+- **Main Server**:
+  - Starts a `ServerSocket` on port `12345`.
+  - Continuously accepts incoming client connections.
+  - Creates a `ClientHandler` thread for each new client.
+  - Manages a list of connected clients to facilitate message broadcasting.
+
+- **ClientHandler (Inner Class)**:
+  - Each connected client runs on a separate thread, allowing multiple users to chat simultaneously.
+  - Reads input from a connected client and sends messages to all other connected clients.
+  - Notifies users when a client joins or leaves.
+  - Cleans up resources when a client disconnects.
+
+### `ChatClient.java`
+
+This class represents the client-side implementation, allowing users to connect to the chat server and send/receive messages.
+
+- **Client Connection**:
+  - Establishes a socket connection to `localhost:12345`.
+  - Uses input and output streams for sending and receiving messages.
+
+- **User Interaction**:
+  - Asks for a username upon connection.
+  - Listens for incoming messages from the server using a separate thread.
+  - Reads user input and sends messages to the server.
+  - Displays real-time chat messages from other users.
+
+- **Threaded Message Listening**:
+  - A background thread continuously listens for incoming messages.
+  - Prevents blocking of user input while messages are being received.
 
 ## How to Run the Chat Application
 
@@ -90,9 +128,12 @@ Alice: Hi John!
   - If you see an error like `Address already in use: JVM_Bind`, ensure no other process is using port `12345`.
   - Try changing the port in `ChatServer.java` and `ChatClient.java`.
 
+- **Console messages appear with delays**:
+  - Ensure `flush()` is called on the `PrintWriter` output stream to force messages to be sent immediately.
+
 ## Screenshots
 
-![alt text](image.png)
+Include screenshots of the server running and multiple clients chatting.
 
 ## License
 
