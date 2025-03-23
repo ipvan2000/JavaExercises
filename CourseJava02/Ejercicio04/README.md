@@ -6,19 +6,19 @@ This project is a Java-based Weather Information Application that provides real-
 
 ## **Project Structure**
 
-The project follows the standard Maven structure:
+The project follows the modified Maven structure:
 
 ```
 Ejercicio04/
 ├── pom.xml                          # Maven configuration file
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── weather/
-│   │   │           ├── App.java          # Entry point of the application
-│   │   │           ├── WeatherAppGUI.java # GUI implementation
-│   │   │           └── WeatherAPI.java   # API 
+└── src/
+    └── main/
+        └── java/
+            └── com/
+                └── weather/
+                    ├── App.java          # Entry point of the application
+                    ├── WeatherAppGUI.java  # GUI implementation
+                    └── WeatherAPI.java     # API integration logic
 ```
 
 ---
@@ -64,37 +64,42 @@ Ejercicio04/
      mvn -v
      ```
 
-### **Steps to Run the Project**
-1. **Clone the Repository:**
-   - Clone the project to your local machine:
+### **Maven Environment Variables (macOS)**
+1. **Set `MAVEN_HOME`:**
+   - Open Terminal.
+   - Edit your shell profile (for example, for zsh, open `~/.zshrc`):
      ```sh
-     git clone <repository-url>
+     nano ~/.zshrc
      ```
-   - Replace `<repository-url>` with the URL of your Git repository.
+   - Add the following lines (adjust the Maven installation path as needed):
+     ```sh
+     export MAVEN_HOME=/usr/local/apache-maven
+     export PATH=$MAVEN_HOME/bin:$PATH
+     ```
+   - Save the file (in Nano, press `Ctrl+O` then `Ctrl+X`) and reload your shell configuration:
+     ```sh
+     source ~/.zshrc
+     ```
 
-2. **Navigate to the Project Directory:**
-   ```sh
-   cd JavaExercises/CourseJava02/Ejercicio04
-   ```
-
-3. **Add Your API Key:**
+### **Steps to Run the Project**
+1. **Navigate to the Project Directory:**
+   - Go to the parent directory
+2. **Add Your API Key:**
    - Open the `WeatherAPI.java` file located in `src/main/java/com/weather/`.
    - Replace the placeholder `YOUR_API_KEY` with your actual OpenWeatherMap API key:
      ```java
      private static final String API_KEY = "YOUR_API_KEY";
      ```
 
-4. **Build the Project:**
-   - Clean and compile the project using Maven:
-     ```sh
-     mvn clean compile
-     ```
+3. **Build the Project:**
+   ```sh
+   mvn clean compile
+   ```
 
-5. **Run the Application:**
-   - Execute the application by running the `App` class:
-     ```sh
-     mvn exec:java -Dexec.mainClass="com.weather.App"
-     ```
+4. **Run the Application:**
+   ```sh
+   mvn exec:java -Dexec.mainClass="com.weather.App"
+   ```
 
 ---
 
@@ -109,9 +114,9 @@ Ejercicio04/
 ---
 
 ## **Dependencies**
-The project uses the following dependencies:
+The project uses the following dependency:
 1. **Gson:**
-   - For parsing JSON responses from the weather API.
+   - Used for parsing JSON responses from the weather API.
    - Included in the `pom.xml`:
      ```xml
      <dependency>
@@ -129,10 +134,8 @@ The project uses the following dependencies:
      ```sh
      mvn clean compile
      ```
-
 2. **Error: API key is invalid:**
    - Verify that you have replaced `YOUR_API_KEY` in `WeatherAPI.java` with a valid OpenWeatherMap API key.
-
 3. **Error: `WeatherAppGUI` import cannot be resolved:**
    - Ensure the file `WeatherAppGUI.java` is located in `src/main/java/com/weather/`.
    - Verify the package declaration in `WeatherAppGUI.java`:
