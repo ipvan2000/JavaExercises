@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class WeatherAPI {
     // API key for accessing the OpenWeatherMap API
-    private static final String API_KEY = "7fca4b1799b2b831bccae69c478ad7af";
+    private static final String API_KEY = "";
 
     // Base URL for the OpenWeatherMap API
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
